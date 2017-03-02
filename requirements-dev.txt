@@ -1,5 +1,6 @@
 -r requirements.txt
 
+docutils
 flake8
 hacking
 mock
