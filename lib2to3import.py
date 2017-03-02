@@ -68,13 +68,13 @@ import chardet
 
 
 VERSION = (2017, 3, 3)
-VERSION_TEXT = ".".join(map(str, VERSION))
+VERSION_TEXT = ".".join(map(str, VERSION)) + ".post1"
 
 __version__ = VERSION_TEXT
 __license__ = "MIT"
 __author__ = "Youhei Sakurai"
 __email__ = "sakurai.youhei@gmail.com"
-__all__ = ["lib2to3importer", "lib2to3zipimporter"]
+__all__ = ["lib2to3importer", "lib2to3zipimporter", "prepending"]
 
 _CACHE_TAG = sys.implementation.cache_tag
 
