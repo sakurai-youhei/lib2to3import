@@ -76,7 +76,7 @@ test_script:
 
   - "python setup.py test"
   - "python setup.py check -m -r -s"
-  - "python -m flake8"
+  - "python -m flake8 --exclude=py2codes"
 
 after_test:
 

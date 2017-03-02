@@ -1,6 +1,6 @@
-"""""
+"""""\
 lib2to3import
-=============
+===============
 
 lib2to3import is a utility to apply Python 2 to 3 code translation on import.
 
@@ -26,7 +26,7 @@ With lib2to3import
   Written when Python 2 was majority.
 
 Limitation
-----------
+------------
 
 There's no way to apply fixes to 2 different roots concurrently.
 
