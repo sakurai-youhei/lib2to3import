@@ -67,7 +67,7 @@ from zipimport import zipimporter
 import chardet
 
 
-VERSION = (2017, 3, 2)
+VERSION = (2017, 3, 3)
 VERSION_TEXT = ".".join(map(str, VERSION))
 
 __version__ = VERSION_TEXT

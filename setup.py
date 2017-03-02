@@ -42,7 +42,7 @@ setup(
     version=lib2to3import.__version__,
     name=lib2to3import.__name__,
     license=lib2to3import.__license__,
-    url="https://bitbucket.org/sakurai_youhei/pymemorymodule/overview",
+    url="https://github.com/sakurai-youhei/lib2to3import",
     description=description,
     long_description=lib2to3import.__doc__,
     classifiers=classifiers,
