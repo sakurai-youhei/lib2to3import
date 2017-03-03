@@ -55,9 +55,13 @@ and packages to be imported.
 """
 
 from contextlib import contextmanager
+from importlib.machinery import BYTECODE_SUFFIXES
+from importlib.machinery import EXTENSION_SUFFIXES
+from importlib.machinery import ExtensionFileLoader
 from importlib.machinery import FileFinder
 from importlib.machinery import SOURCE_SUFFIXES
 from importlib.machinery import SourceFileLoader
+from importlib.machinery import SourcelessFileLoader
 from itertools import chain
 from lib2to3.refactor import RefactoringTool
 import os
@@ -68,7 +72,7 @@ import chardet
 
 
 VERSION = (2017, 3, 3)
-VERSION_TEXT = ".".join(map(str, VERSION)) + ".post1"
+VERSION_TEXT = ".".join(map(str, VERSION)) + ".post2"
 
 __version__ = VERSION_TEXT
 __license__ = "MIT"
@@ -141,8 +145,10 @@ def lib2to3importer(fixers, prefix=None):
     :param prefix: Prefix of module or package name to apply fixes.
         Unless provided, fixes are applied to all of modules and packages.
     """
-    loader = Lib2to3FileLoader.apply(fixers, prefix)
-    return FileFinder.path_hook((loader, SOURCE_SUFFIXES))
+    extensions = ExtensionFileLoader, EXTENSION_SUFFIXES
+    source = Lib2to3FileLoader.apply(fixers, prefix), SOURCE_SUFFIXES
+    bytecode = SourcelessFileLoader, BYTECODE_SUFFIXES
+    return FileFinder.path_hook(extensions, source, bytecode)
 
 
 def lib2to3zipimporter(fixers, prefix=None):
