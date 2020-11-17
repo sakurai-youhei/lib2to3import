@@ -71,8 +71,8 @@ from zipimport import zipimporter
 import chardet
 
 
-VERSION = (2017, 3, 3)
-VERSION_TEXT = ".".join(map(str, VERSION)) + ".post2"
+VERSION = (2020, 11, 17)
+VERSION_TEXT = ".".join(map(str, VERSION)) + ""
 
 __version__ = VERSION_TEXT
 __license__ = "MIT"

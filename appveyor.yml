@@ -38,23 +38,31 @@ environment:
       PYTHON_VERSION: "3.6.x"
       PYTHON_ARCH: "64"
 
-  PYPIUSERNAME:
+    - PYTHON: "C:\\Python37"
+      PYTHON_VERSION: "3.7.x"
+      PYTHON_ARCH: "32"
 
-    secure: 9PcMMf9KccpsdTeMp+2m+A==
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_VERSION: "3.7.x"
+      PYTHON_ARCH: "64"
 
-  PYPIPASSWORD:
+    - PYTHON: "C:\\Python38"
+      PYTHON_VERSION: "3.8.x"
+      PYTHON_ARCH: "32"
 
-    secure: BU3VwuaiD1GnvjsIr3wnhcmHHNeYdukKgq6N2/uY7Zo=
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "3.8.x"
+      PYTHON_ARCH: "64"
 
-  PYPITESTUSERNAME:
+  TWINE_NON_INTERACTIVE: "1"
+  TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
+  TWINE_USERNAME: __token__
+  TWINE_PASSWORD:
+    secure: Kn/XaJeSIhVnHu9oFNqv3b2lpfS2faLfDlvRSRo9ZrbBKSEOP+6/GQNYp1unZLh+U3wjaDePswwNsd/axAsNoZeSXMHBAJuHsGUMiR+Vf4d2mWs5vVOXTuF4mNCinT/nyjn+mzYfSDPXemS3s7yLupMliVYDPRezmBggGinQgz5KuXksdXK+RbtKixxFQxjMjzxfqn4v4gHFLXnaRtGqh954Nxg/8kNNFQEkPPlSup6TyO1ZJCAsYNdUNm3yPy8IYzFx4yjG+OW9FBnLf0BL+2rbA9nHrpske4z43o5wXf4=
 
-    secure: 9PcMMf9KccpsdTeMp+2m+A==
-
-  PYPITESTPASSWORD:
-
-    secure: BU3VwuaiD1GnvjsIr3wnhcmHHNeYdukKgq6N2/uY7Zo=
-
-  PYPI: pypitest
+  PYPI_REPOSITORY_URL: https://upload.pypi.org/legacy/
+  PYPI_PASSWORD:
+    secure: ybhLz1kln6tOLpI1fZ51Pwjhp2YAaa2TMrqnvkz5YINUo8SUIEiIZTz1GT5Uly0Oqa1HYpFNUVqQtjkFPrWs/dPBHnrBH8g4FRCfRRt1jLR9gJEJhBmnddiFZ0X8XquMjQYJm8uCfRWBjQ9pOnq3QLbJs6HumFI3/50U9Nk3Rhl2vUGMLmFURFG5BpzKK75sx96eQ7u4Nm/C32aZkok4e9doeeoyCZcsTLqf/zbI78Yc2vdZwkJtKf6eFh6xP1KC4+xl8chLS5WcH4HeyqODVA==
 
 install:
 
@@ -84,26 +92,13 @@ test_script:
 
 after_test:
 
-  # Prepare .pypirc to upload packages to PyPI
-  - "echo.                                               > %USERPROFILE%\\.pypirc"
-  - "echo [distutils]                                   >> %USERPROFILE%\\.pypirc"
-  - "echo index-servers=                                >> %USERPROFILE%\\.pypirc"
-  - "echo     pypi                                      >> %USERPROFILE%\\.pypirc"
-  - "echo     pypitest                                  >> %USERPROFILE%\\.pypirc"
-  - "echo [pypi]                                        >> %USERPROFILE%\\.pypirc"
-  - "echo repository = https://pypi.python.org/pypi     >> %USERPROFILE%\\.pypirc"
-  - "echo username = %PYPIUSERNAME%                     >> %USERPROFILE%\\.pypirc"
-  - "echo password = %PYPIPASSWORD%                     >> %USERPROFILE%\\.pypirc"
-  - "echo [pypitest]                                    >> %USERPROFILE%\\.pypirc"
-  - "echo repository = https://testpypi.python.org/pypi >> %USERPROFILE%\\.pypirc"
-  - "echo username = %PYPITESTUSERNAME%                 >> %USERPROFILE%\\.pypirc"
-  - "echo password = %PYPITESTPASSWORD%                 >> %USERPROFILE%\\.pypirc"
-
   # Determine if building target is a tag which name starts with 'v0', 'v1', ... or 'v9'
-  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set PYPI=pypi || exit /b 0"
+  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_REPOSITORY_URL=%PYPI_REPOSITORY_URL% || exit /b 0"
+  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_PASSWORD=%PYPI_PASSWORD% || exit /b 0"
 
-  - "python setup.py register -r %PYPI: =%"
-  - "python setup.py sdist upload -r %PYPI: =% || exit 0"
+  - "python setup.py clean bdist_wheel"
+  - "py -3 -m pip install twine"
+  - "py -3 -m twine upload --verbose --skip-existing dist/*"
   - ps: "ls dist"
 
 #artifacts:
