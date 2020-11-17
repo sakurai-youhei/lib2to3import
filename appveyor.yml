@@ -55,7 +55,7 @@ environment:
       PYTHON_ARCH: "64"
 
   TWINE_NON_INTERACTIVE: "1"
-  TWINE_REPOSITORY_URL: https://test.pypi.org/lecagy/
+  TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
   TWINE_USERNAME: __token__
   TWINE_PASSWORD:
     secure: Kn/XaJeSIhVnHu9oFNqv3b2lpfS2faLfDlvRSRo9ZrbBKSEOP+6/GQNYp1unZLh+U3wjaDePswwNsd/axAsNoZeSXMHBAJuHsGUMiR+Vf4d2mWs5vVOXTuF4mNCinT/nyjn+mzYfSDPXemS3s7yLupMliVYDPRezmBggGinQgz5KuXksdXK+RbtKixxFQxjMjzxfqn4v4gHFLXnaRtGqh954Nxg/8kNNFQEkPPlSup6TyO1ZJCAsYNdUNm3yPy8IYzFx4yjG+OW9FBnLf0BL+2rbA9nHrpske4z43o5wXf4=
