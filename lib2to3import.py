@@ -72,7 +72,7 @@ import chardet
 
 
 VERSION = (2020, 11, 17)
-VERSION_TEXT = ".".join(map(str, VERSION)) + ""
+VERSION_TEXT = ".".join(map(str, VERSION)) + ".post1"
 
 __version__ = VERSION_TEXT
 __license__ = "MIT"
