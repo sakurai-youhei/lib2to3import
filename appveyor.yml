@@ -54,21 +54,17 @@ environment:
       PYTHON_VERSION: "3.8.x"
       PYTHON_ARCH: "64"
 
-  PYPIUSERNAME:
-
-    secure: 9PcMMf9KccpsdTeMp+2m+A==
+  PYPIUSERNAME: __token__
 
   PYPIPASSWORD:
 
-    secure: BU3VwuaiD1GnvjsIr3wnhcmHHNeYdukKgq6N2/uY7Zo=
+    secure: ybhLz1kln6tOLpI1fZ51Pwjhp2YAaa2TMrqnvkz5YINUo8SUIEiIZTz1GT5Uly0Oqa1HYpFNUVqQtjkFPrWs/dPBHnrBH8g4FRCfRRt1jLR9gJEJhBmnddiFZ0X8XquMjQYJm8uCfRWBjQ9pOnq3QLbJs6HumFI3/50U9Nk3Rhl2vUGMLmFURFG5BpzKK75sx96eQ7u4Nm/C32aZkok4e9doeeoyCZcsTLqf/zbI78Yc2vdZwkJtKf6eFh6xP1KC4+xl8chLS5WcH4HeyqODVA==
 
-  PYPITESTUSERNAME:
-
-    secure: 9PcMMf9KccpsdTeMp+2m+A==
+  PYPITESTUSERNAME: __token__
 
   PYPITESTPASSWORD:
 
-    secure: BU3VwuaiD1GnvjsIr3wnhcmHHNeYdukKgq6N2/uY7Zo=
+    secure: Kn/XaJeSIhVnHu9oFNqv3b2lpfS2faLfDlvRSRo9ZrbBKSEOP+6/GQNYp1unZLh+U3wjaDePswwNsd/axAsNoZeSXMHBAJuHsGUMiR+Vf4d2mWs5vVOXTuF4mNCinT/nyjn+mzYfSDPXemS3s7yLupMliVYDPRezmBggGinQgz5KuXksdXK+RbtKixxFQxjMjzxfqn4v4gHFLXnaRtGqh954Nxg/8kNNFQEkPPlSup6TyO1ZJCAsYNdUNm3yPy8IYzFx4yjG+OW9FBnLf0BL+2rbA9nHrpske4z43o5wXf4=
 
   PYPI: pypitest
 
