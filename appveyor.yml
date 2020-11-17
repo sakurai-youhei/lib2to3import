@@ -78,7 +78,7 @@ install:
 
 build_script:
 
-  - "python setup.py clean sdist bdist_wheel"
+  - "python setup.py clean build"
 
 before_test:
 
@@ -96,6 +96,7 @@ after_test:
   - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_REPOSITORY_URL=%PYPI_REPOSITORY_URL% || exit /b 0"
   - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_PASSWORD=%PYPI_PASSWORD% || exit /b 0"
 
+  - "python setup.py clean sdist bdist_wheel"
   - "py -3 -m pip install twine"
   - "py -3 -m twine upload --verbose --skip-existing dist/*"
   - ps: "ls dist"
