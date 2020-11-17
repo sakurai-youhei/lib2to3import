@@ -97,7 +97,7 @@ after_test:
   - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_PASSWORD=%PYPI_PASSWORD% || exit /b 0"
 
   - "py -3 -m pip install twine"
-  - "py -3 -m twine upload --verbose --skip-existing dist"
+  - "py -3 -m twine upload --verbose --skip-existing dist/*"
   - ps: "ls dist"
 
 #artifacts:
