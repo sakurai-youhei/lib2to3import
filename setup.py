@@ -1,8 +1,17 @@
 
-from operator import attrgetter
 import os
 
-from pip.req import parse_requirements
+# https://stackoverflow.com/a/59969843
+try:
+    # pip >=20
+    from pip._internal.req import parse_requirements
+except ImportError:
+    try:
+        # 10.0.0 <= pip <= 19.3.1
+        from pip._internal.req import parse_requirements
+    except ImportError:
+        # pip <= 9.0.3
+        from pip.req import parse_requirements
 from setuptools import setup
 
 import lib2to3import
@@ -30,10 +39,15 @@ importer
 """.splitlines()
 
 description = lib2to3import.__doc__.splitlines()[3]
-requirements_txt = list(map(str, map(
-    attrgetter("req"),
-    parse_requirements(from_here("requirements.txt"), session="")
-)))
+
+requirements_txt = parse_requirements(from_here("requirements.txt"),
+                                      session="")
+# https://stackoverflow.com/a/62127548
+try:
+    install_requires = [str(ir.req) for ir in requirements_txt]
+except AttributeError:
+    install_requires = [str(ir.requirement) for ir in requirements_txt]
+
 with open(from_here("README.rst"), "w") as fp:
     for line in lib2to3import.__doc__.splitlines():
         print(line, file=fp)
@@ -50,6 +64,6 @@ setup(
     author=lib2to3import.__author__,
     author_email=lib2to3import.__email__,
     py_modules=[lib2to3import.__name__],
-    install_requires=requirements_txt,
+    install_requires=install_requires,
     test_suite="test.suite",
 )

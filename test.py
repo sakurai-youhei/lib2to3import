@@ -62,6 +62,7 @@ class Lib2to3ImportTest(TestCase):
             assert _ctypes
 
     @skipIf(not is_installed("pysandbox"), "pysandbox is not installed")
+    @skipIf(True, "pysandbox is no longer suite for testing as of 2020")
     def test_lib2to3importer_pysandbox(self):
         from lib2to3import import lib2to3importer
         from lib2to3import import prepending
