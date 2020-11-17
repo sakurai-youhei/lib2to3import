@@ -78,7 +78,7 @@ install:
 
 build_script:
 
-  - "python setup.py clean build"
+  - "python setup.py clean sdist bdist_wheel"
 
 before_test:
 
