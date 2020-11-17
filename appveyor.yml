@@ -54,19 +54,15 @@ environment:
       PYTHON_VERSION: "3.8.x"
       PYTHON_ARCH: "64"
 
-  PYPIUSERNAME: __token__
-
-  PYPIPASSWORD:
-
-    secure: ybhLz1kln6tOLpI1fZ51Pwjhp2YAaa2TMrqnvkz5YINUo8SUIEiIZTz1GT5Uly0Oqa1HYpFNUVqQtjkFPrWs/dPBHnrBH8g4FRCfRRt1jLR9gJEJhBmnddiFZ0X8XquMjQYJm8uCfRWBjQ9pOnq3QLbJs6HumFI3/50U9Nk3Rhl2vUGMLmFURFG5BpzKK75sx96eQ7u4Nm/C32aZkok4e9doeeoyCZcsTLqf/zbI78Yc2vdZwkJtKf6eFh6xP1KC4+xl8chLS5WcH4HeyqODVA==
-
-  PYPITESTUSERNAME: __token__
-
-  PYPITESTPASSWORD:
-
+  TWINE_NON_INTERACTIVE: "1"
+  TWINE_REPOSITORY: https://test.pypi.org/lecagy/
+  TWINE_USERNAME: __token__
+  TWINE_PASSWORD:
     secure: Kn/XaJeSIhVnHu9oFNqv3b2lpfS2faLfDlvRSRo9ZrbBKSEOP+6/GQNYp1unZLh+U3wjaDePswwNsd/axAsNoZeSXMHBAJuHsGUMiR+Vf4d2mWs5vVOXTuF4mNCinT/nyjn+mzYfSDPXemS3s7yLupMliVYDPRezmBggGinQgz5KuXksdXK+RbtKixxFQxjMjzxfqn4v4gHFLXnaRtGqh954Nxg/8kNNFQEkPPlSup6TyO1ZJCAsYNdUNm3yPy8IYzFx4yjG+OW9FBnLf0BL+2rbA9nHrpske4z43o5wXf4=
 
-  PYPI: pypitest
+  PYPI_REPOSITORY: https://upload.pypi.org/legacy/
+  PYPI_PASSWORD:
+    secure: ybhLz1kln6tOLpI1fZ51Pwjhp2YAaa2TMrqnvkz5YINUo8SUIEiIZTz1GT5Uly0Oqa1HYpFNUVqQtjkFPrWs/dPBHnrBH8g4FRCfRRt1jLR9gJEJhBmnddiFZ0X8XquMjQYJm8uCfRWBjQ9pOnq3QLbJs6HumFI3/50U9Nk3Rhl2vUGMLmFURFG5BpzKK75sx96eQ7u4Nm/C32aZkok4e9doeeoyCZcsTLqf/zbI78Yc2vdZwkJtKf6eFh6xP1KC4+xl8chLS5WcH4HeyqODVA==
 
 install:
 
@@ -112,10 +108,11 @@ after_test:
   - "echo password = %PYPITESTPASSWORD%                 >> %USERPROFILE%\\.pypirc"
 
   # Determine if building target is a tag which name starts with 'v0', 'v1', ... or 'v9'
-  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set PYPI=pypi || exit /b 0"
+  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_REPOSITORY=%PYPI_REPOSITORY% || exit /b 0"
+  - "echo %APPVEYOR_REPO_TAG_NAME% | findstr /B \"v[0-9]\" && set TWINE_PASSWORD=%PYPI_PASSWORD% || exit /b 0"
 
-  - "python setup.py register -r %PYPI: =%"
-  - "python setup.py sdist upload -r %PYPI: =% || exit 0"
+  - "py -3 -m pip install twine"
+  - "py -3 -m twine upload --verbose --skip-existing dist"
   - ps: "ls dist"
 
 #artifacts:
